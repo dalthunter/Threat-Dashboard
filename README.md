@@ -3,4 +3,4 @@
 🔗 [Global Threat Intelligence Dashboard](https://dalthunter.github.io/Threat-Dashboard/)
 
 ## Overview
-This platform consolidates cyber threat intelligence concepts into a centralized interface capable of supporting situational awareness, educational learning, and adversary analysis through a visually driven intelligence workflow.
+The Global Threat Intelligence Dashboard is an intelligence-driven platform designed to visualize cyber threats, support situational awareness, and analyze adversary activity through an interactive intelligence workflow.
