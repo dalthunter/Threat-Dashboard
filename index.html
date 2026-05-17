@@ -408,7 +408,7 @@
   .empty-state { grid-column: 1 / -1; text-align: center; padding: 80px 20px; color: var(--text3); }
   .empty-state p { font-family: var(--mono); font-size: 12px; }
 
-  /* Responsive: fall back gracefully for narrower displays */
+  /* ── Desktop responsive breakpoints (unchanged) ── */
   @media (max-width: 1400px) {
     .actor-grid { grid-template-columns: repeat(4, 1fr); }
   }
@@ -418,6 +418,178 @@
   @media (max-width: 760px) {
     .actor-grid { grid-template-columns: repeat(2, 1fr); }
     .detail-panel { width: 100vw; }
+  }
+
+  /* ══════════════════════════════════════════
+     MOBILE-ONLY OVERRIDES (max-width: 480px)
+     Desktop/laptop styles are untouched above.
+     ══════════════════════════════════════════ */
+  @media (max-width: 480px) {
+
+    /* ── App layout: allow natural scroll instead of fixed vh ── */
+    html, body { height: auto; overflow: auto; }
+    .app {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      min-height: 100dvh;
+      overflow: visible;
+    }
+
+    /* ── Topbar: hide logo text + extra items, show only title + badge ── */
+    .topbar {
+      padding: 12px 16px;
+      gap: 10px;
+    }
+    .logo { display: none; } /* hide "ThreatBase" section on mobile */
+    .topbar-title {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .analyst-tag { display: none; }
+    .topbar-right {
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    #utc-clock { display: none; }
+    .total-badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      white-space: nowrap;
+    }
+
+    /* ── Controls bar: stack search below filters ── */
+    .controls {
+      padding: 10px 12px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    /* ── Filter group: hide "All" button, keep APT/Cybercrime/Hacktivist ── */
+    .filter-group {
+      display: flex;
+      width: 100%;
+      gap: 6px;
+    }
+    .filter-btn {
+      flex: 1;
+      justify-content: center;
+      padding: 8px 6px;
+      font-size: 10px;
+      letter-spacing: .05em;
+      gap: 4px;
+    }
+    /* Hide the "All" button (first button in filter group) */
+    .filter-group .filter-btn:first-child {
+      display: none;
+    }
+
+    /* ── Search bar: full width, no left margin ── */
+    .search-wrap {
+      margin-left: 0;
+      width: 100%;
+    }
+    .search-wrap input {
+      width: 100%;
+      font-size: 14px; /* prevents iOS zoom on focus */
+      padding: 10px 12px 10px 34px;
+      border-radius: 6px;
+    }
+    .search-icon { font-size: 14px; left: 11px; }
+
+    /* ── Main area: natural flow, no overflow hidden ── */
+    .main {
+      overflow: visible;
+      flex: 1;
+    }
+    .grid-area {
+      padding: 14px 12px 24px;
+      overflow: visible;
+    }
+
+    /* ── Cards: single column, bigger and more readable ── */
+    .actor-grid {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .actor-card {
+      min-height: auto;
+      padding: 16px 16px 14px;
+      border-radius: 10px;
+      gap: 5px;
+    }
+    .actor-card::before { height: 3px; }
+    /* Disable transform on mobile (touch doesn't need hover lift) */
+    .actor-card:hover { transform: none; }
+
+    .card-head { margin-bottom: 2px; gap: 8px; }
+    .card-name { font-size: 16px; font-weight: 600; line-height: 1.3; }
+
+    .type-badge {
+      font-size: 9px;
+      padding: 3px 8px;
+      margin-top: 2px;
+    }
+    .card-nation {
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    .card-targets {
+      font-size: 13px;
+      color: var(--text3);
+      -webkit-line-clamp: 2;
+      line-height: 1.6;
+    }
+
+    /* ── Detail panel: full screen on mobile ── */
+    .detail-panel {
+      width: 100vw;
+      max-width: 100vw;
+      border-left: none;
+      border-top: 1px solid var(--border2);
+    }
+    .panel-header {
+      padding: 18px 16px 14px;
+    }
+    .panel-name { font-size: 18px; }
+    .close-btn {
+      padding: 8px 14px;
+      font-size: 16px;
+      min-width: 44px; /* accessible tap target */
+      text-align: center;
+    }
+    .panel-meta { gap: 6px; }
+    .meta-pill { font-size: 10px; padding: 3px 8px; }
+
+    .panel-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tab-btn {
+      padding: 12px 16px;
+      font-size: 10px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .panel-body { padding: 20px 16px 32px; }
+
+    .section { margin-bottom: 22px; }
+    .overview-text { font-size: 14px; line-height: 1.75; }
+
+    .obj-grid { grid-template-columns: 1fr; gap: 7px; }
+    .obj-item { font-size: 13px; padding: 10px 12px; }
+
+    .ttp-item { font-size: 13px; padding: 10px 12px; flex-wrap: wrap; gap: 6px; }
+    .mitre-id { font-size: 10px; }
+
+    .pill { font-size: 11px; padding: 5px 10px; }
+
+    /* ── Empty state ── */
+    .empty-state { padding: 60px 20px; }
   }
 </style>
 </head>
