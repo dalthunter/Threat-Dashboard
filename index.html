@@ -130,7 +130,35 @@
     letter-spacing: -.02em;
     text-shadow: 0 1px 8px rgba(0,0,0,0.5);
   }
+.topbar-title-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
 
+  .topbar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #eef2f7;
+    letter-spacing: -.02em;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+
+  .topbar-divider {
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  .topbar-subtitle {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text3);
+    letter-spacing: .01em;
+  }
   .topbar-right {
     margin-left: auto;
     display: flex;
@@ -851,7 +879,11 @@
     <div class="logo-dot"></div>
     ThreatBase
   </div>
-  <div class="topbar-title">Global Threat Dashboard</div>
+<div class="topbar-title-group">
+    <span class="topbar-title">Global Threat Dashboard</span>
+    <span class="topbar-divider"></span>
+    <span class="topbar-subtitle">Intelligence Platform</span>
+  </div>
   <div class="mobile-credit">Dalton Hunter</div>
   <div class="topbar-right">
     <div id="utc-clock" style="font-family:var(--mono);font-size:11.5px;color:var(--text3);background:linear-gradient(135deg,var(--bg3) 0%,var(--bg4) 100%);border:1px solid var(--border2);padding:3px 10px;border-radius:5px;letter-spacing:.08em;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.04);"></div>
