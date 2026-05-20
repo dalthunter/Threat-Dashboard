@@ -1119,7 +1119,61 @@ function updateCounts() {
   document.getElementById('cnt-hack').textContent = actors.filter(a => a.type==='Hacktivist' && matches(a)).length;
   document.getElementById('total-badge').textContent = all.length + ' actor' + (all.length !== 1 ? 's' : '');
 }
-
+function getNationFlag(nation) {
+  const flags = {
+    'China': '🇨🇳',
+    'China (suspected)': '🇨🇳',
+    'Russia': '🇷🇺',
+    'Russia (suspected)': '🇷🇺',
+    'Russia (RaaS/global)': '🇷🇺',
+    'Iran': '🇮🇷',
+    'Iran (suspected)': '🇮🇷',
+    'North Korea': '🇰🇵',
+    'USA': '🇺🇸',
+    'USA / UK': '🇺🇸',
+    'USA (decentralized)': '🇺🇸',
+    'Pakistan': '🇵🇰',
+    'India': '🇮🇳',
+    'India (attributed)': '🇮🇳',
+    'India (suspected)': '🇮🇳',
+    'South Asia (India suspected)': '🇮🇳',
+    'Vietnam': '🇻🇳',
+    'South Korea': '🇰🇷',
+    'South Korea (attributed, disputed)': '🇰🇷',
+    'Belarus': '🇧🇾',
+    'Belarus (opposition)': '🇧🇾',
+    'Nigeria': '🇳🇬',
+    'Nigeria (suspected)': '🇳🇬',
+    'Ukraine': '🇺🇦',
+    'Ukraine / Russia': '🇺🇦',
+    'Turkey': '🇹🇷',
+    'Sudan': '🇸🇩',
+    'Sudan / Russia-linked': '🇸🇩',
+    'Venezuela': '🇻🇪',
+    'Venezuela (claimed)': '🇻🇪',
+    'Malaysia': '🇲🇾',
+    'Malaysia / Russia (disputed)': '🇲🇾',
+    'UK': '🇬🇧',
+    'UK / Brazil / global': '🇬🇧',
+    'Eastern Europe': '🌍',
+    'Western (claimed)': '🌐',
+    'Decentralized (global)': '🌐',
+    'Various': '🌐',
+    'Unknown': '🌐',
+  };
+  const flag = flags[nation] || '🌐';
+  return `<span style="
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+    font-size: 15px;
+    line-height: 1;
+    vertical-align: middle;
+    margin-left: 4px;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    display: inline-block;
+  ">${flag}</span>`;
+}
 function renderGrid() {
   const q = document.getElementById('search-input').value.toLowerCase();
   const grid = document.getElementById('actor-grid');
@@ -1138,7 +1192,7 @@ function renderGrid() {
           <div class="card-name">${a.name}</div>
           <span class="type-badge ${getBadgeClass(a.type)}">${a.type}</span>
         </div>
-        <div class="card-nation">${a.nation}</div>
+<div class="card-nation">${a.nation} ${getNationFlag(a.nation)}</div>
         <div class="card-targets">${(a.targets||[]).slice(0,3).join(' · ')}</div>
       </div>`;
     }).join('');
