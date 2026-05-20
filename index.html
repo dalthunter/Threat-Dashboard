@@ -123,12 +123,29 @@
     50% { opacity: 0.5; box-shadow: 0 0 5px var(--accent-apt), 0 0 10px rgba(255,82,71,0.1); }
   }
 
-  .topbar-title {
+.topbar-title {
     font-size: 15px;
     font-weight: 600;
     color: var(--text);
     letter-spacing: -.02em;
     text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  }
+
+  .topbar-divider {
+    margin: 0 10px;
+    color: rgba(255,255,255,0.15);
+    font-weight: 300;
+  }
+
+  .topbar-subtitle {
+    font-weight: 400;
+    color: rgba(238,242,247,0.65);
+    letter-spacing: -.01em;
+  }
+
+  @media (max-width: 480px) {
+    .topbar-divider,
+    .topbar-subtitle { display: none; }
   }
 
   .topbar-right {
@@ -846,12 +863,43 @@
 
 <div class="app">
 
+<div aria-hidden="true" style="position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.05;">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <g stroke="rgba(91,156,246,0.55)" stroke-width="0.5" fill="none">
+    <line x1="0" y1="100" x2="1200" y2="100"/><line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/><line x1="0" y1="600" x2="1200" y2="600"/>
+    <line x1="0" y1="700" x2="1200" y2="700"/>
+    <line x1="150" y1="0" x2="150" y2="800"/><line x1="300" y1="0" x2="300" y2="800"/>
+    <line x1="450" y1="0" x2="450" y2="800"/><line x1="600" y1="0" x2="600" y2="800"/>
+    <line x1="750" y1="0" x2="750" y2="800"/><line x1="900" y1="0" x2="900" y2="800"/>
+    <line x1="1050" y1="0" x2="1050" y2="800"/>
+  </g>
+  <g fill="rgba(91,156,246,0.5)" stroke="rgba(91,156,246,0.35)" stroke-width="0.7">
+    <circle cx="900" cy="550" r="3"/><circle cx="980" cy="490" r="2.5"/>
+    <circle cx="1050" cy="580" r="3.5"/><circle cx="1100" cy="510" r="2"/>
+    <circle cx="1020" cy="650" r="2.5"/><circle cx="850" cy="630" r="2"/>
+    <circle cx="1130" cy="440" r="2"/>
+    <line x1="900" y1="550" x2="980" y2="490"/><line x1="980" y1="490" x2="1050" y2="580"/>
+    <line x1="1050" y1="580" x2="1100" y2="510"/><line x1="1050" y1="580" x2="1020" y2="650"/>
+    <line x1="900" y1="550" x2="850" y2="630"/><line x1="1100" y1="510" x2="1130" y2="440"/>
+    <line x1="900" y1="550" x2="1050" y2="580"/>
+  </g>
+  <circle cx="1200" cy="0" r="420" fill="none" stroke="rgba(91,156,246,0.2)" stroke-width="0.8"/>
+  <circle cx="1200" cy="0" r="310" fill="none" stroke="rgba(91,156,246,0.14)" stroke-width="0.6"/>
+</svg>
+</div>
+
 <div class="topbar">
   <div class="logo">
     <div class="logo-dot"></div>
     ThreatBase
   </div>
-  <div class="topbar-title">Global Threat Dashboard</div>
+<div class="topbar-title">
+  Global Threat Dashboard
+  <span class="topbar-divider">|</span>
+  <span class="topbar-subtitle">Intelligence Platform</span>
+</div>
   <div class="mobile-credit">Dalton Hunter</div>
   <div class="topbar-right">
     <div id="utc-clock" style="font-family:var(--mono);font-size:11.5px;color:var(--text3);background:linear-gradient(135deg,var(--bg3) 0%,var(--bg4) 100%);border:1px solid var(--border2);padding:3px 10px;border-radius:5px;letter-spacing:.08em;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.04);"></div>
@@ -1087,7 +1135,32 @@ function updateCounts() {
   document.getElementById('cnt-hack').textContent = actors.filter(a => a.type==='Hacktivist' && matches(a)).length;
   document.getElementById('total-badge').textContent = all.length + ' actor' + (all.length !== 1 ? 's' : '');
 }
+const NATION_FLAGS = {
+  'China':'cn','Russia':'ru','Iran':'ir','North Korea':'kp',
+  'USA':'us','United States':'us','UK':'gb','United Kingdom':'gb',
+  'Ukraine':'ua','Pakistan':'pk','India':'in','Vietnam':'vn',
+  'South Korea':'kr','Belarus':'by','Turkey':'tr','Nigeria':'ng',
+  'Malaysia':'my','Sudan':'sd','Venezuela':'ve','Israel':'il',
+  'Germany':'de','France':'fr','Finland':'fi',
+  'South Asia (India suspected)':'in','India (suspected)':'in',
+  'India (attributed)':'in','Russia (suspected)':'ru',
+  'Russia (RaaS/global)':'ru','Iran (suspected)':'ir',
+  'China (suspected)':'cn','Ukraine / Russia':'ua',
+  'Eastern Europe':'eu','South Korea (attributed, disputed)':'kr',
+  'Nigeria (suspected)':'ng','Malaysia / Russia (disputed)':'my',
+  'Sudan / Russia-linked':'sd','USA / UK':'us','USA / Western':'us',
+  'USA / UK / Finland':'us','Belarus (opposition)':'by',
+  'USA (decentralized)':'us','Western (claimed)':null,
+  'Decentralized (global)':null,'Various':null,'Unknown':null
+};
 
+function flagImg(nation) {
+  const code = NATION_FLAGS[nation];
+  if (!code) return '';
+  return `<img src="https://flagcdn.com/w40/${code}.png" alt="${nation}" style="width:18px;height:auto;vertical-align:middle;margin-right:5px;border-radius:2px;display:inline;">`;
+}
+
+function renderGrid() {
 function renderGrid() {
   const q = document.getElementById('search-input').value.toLowerCase();
   const grid = document.getElementById('actor-grid');
@@ -1106,7 +1179,7 @@ function renderGrid() {
           <div class="card-name">${a.name}</div>
           <span class="type-badge ${getBadgeClass(a.type)}">${a.type}</span>
         </div>
-        <div class="card-nation">${a.nation}</div>
+<div class="card-nation">${flagImg(a.nation)}${a.nation}</div>
         <div class="card-targets">${(a.targets||[]).slice(0,3).join(' · ')}</div>
       </div>`;
     }).join('');
@@ -1127,7 +1200,7 @@ function openActor(idx) {
   document.getElementById('panel-name').textContent = a.name;
   document.getElementById('panel-meta').innerHTML = `
     <span class="type-badge ${getBadgeClass(a.type)}">${a.type}</span>
-    <span class="meta-pill">${a.nation}</span>
+<span class="meta-pill">${flagImg(a.nation)}${a.nation}</span>
     ${a.mitre_group_id && a.mitre_group_id !== 'N/A' ? `<span class="meta-pill">MITRE ${a.mitre_group_id}</span>` : ''}
   `;
 
