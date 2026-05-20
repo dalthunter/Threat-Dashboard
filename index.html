@@ -1120,59 +1120,66 @@ function updateCounts() {
   document.getElementById('total-badge').textContent = all.length + ' actor' + (all.length !== 1 ? 's' : '');
 }
 function getNationFlag(nation) {
-  const flags = {
-    'China': '🇨🇳',
-    'China (suspected)': '🇨🇳',
-    'Russia': '🇷🇺',
-    'Russia (suspected)': '🇷🇺',
-    'Russia (RaaS/global)': '🇷🇺',
-    'Iran': '🇮🇷',
-    'Iran (suspected)': '🇮🇷',
-    'North Korea': '🇰🇵',
-    'USA': '🇺🇸',
-    'USA / UK': '🇺🇸',
-    'USA (decentralized)': '🇺🇸',
-    'Pakistan': '🇵🇰',
-    'India': '🇮🇳',
-    'India (attributed)': '🇮🇳',
-    'India (suspected)': '🇮🇳',
-    'South Asia (India suspected)': '🇮🇳',
-    'Vietnam': '🇻🇳',
-    'South Korea': '🇰🇷',
-    'South Korea (attributed, disputed)': '🇰🇷',
-    'Belarus': '🇧🇾',
-    'Belarus (opposition)': '🇧🇾',
-    'Nigeria': '🇳🇬',
-    'Nigeria (suspected)': '🇳🇬',
-    'Ukraine': '🇺🇦',
-    'Ukraine / Russia': '🇺🇦',
-    'Turkey': '🇹🇷',
-    'Sudan': '🇸🇩',
-    'Sudan / Russia-linked': '🇸🇩',
-    'Venezuela': '🇻🇪',
-    'Venezuela (claimed)': '🇻🇪',
-    'Malaysia': '🇲🇾',
-    'Malaysia / Russia (disputed)': '🇲🇾',
-    'UK': '🇬🇧',
-    'UK / Brazil / global': '🇬🇧',
-    'Eastern Europe': '🌍',
-    'Western (claimed)': '🌐',
-    'Decentralized (global)': '🌐',
-    'Various': '🌐',
-    'Unknown': '🌐',
+  const codes = {
+    'China': 'cn',
+    'China (suspected)': 'cn',
+    'Russia': 'ru',
+    'Russia (suspected)': 'ru',
+    'Russia (RaaS/global)': 'ru',
+    'Iran': 'ir',
+    'Iran (suspected)': 'ir',
+    'North Korea': 'kp',
+    'USA': 'us',
+    'USA / UK': 'us',
+    'USA (decentralized)': 'us',
+    'Pakistan': 'pk',
+    'India': 'in',
+    'India (attributed)': 'in',
+    'India (suspected)': 'in',
+    'South Asia (India suspected)': 'in',
+    'Vietnam': 'vn',
+    'South Korea': 'kr',
+    'South Korea (attributed, disputed)': 'kr',
+    'Belarus': 'by',
+    'Belarus (opposition)': 'by',
+    'Nigeria': 'ng',
+    'Nigeria (suspected)': 'ng',
+    'Ukraine': 'ua',
+    'Ukraine / Russia': 'ua',
+    'Turkey': 'tr',
+    'Sudan': 'sd',
+    'Sudan / Russia-linked': 'sd',
+    'Venezuela': 've',
+    'Venezuela (claimed)': 've',
+    'Malaysia': 'my',
+    'Malaysia / Russia (disputed)': 'my',
+    'UK': 'gb',
+    'UK / Brazil / global': 'gb',
+    'Eastern Europe': null,
+    'Western (claimed)': null,
+    'Decentralized (global)': null,
+    'Various': null,
+    'Unknown': null,
   };
-  const flag = flags[nation] || '🌐';
-  return `<span style="
-    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
-    font-size: 15px;
-    line-height: 1;
-    vertical-align: middle;
-    margin-left: 4px;
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-select: none;
-    display: inline-block;
-  ">${flag}</span>`;
+  const code = codes[nation];
+  if (!code) return '';
+  return `<img
+    src="https://flagcdn.com/20x15/${code}.png"
+    srcset="https://flagcdn.com/40x30/${code}.png 2x"
+    width="20"
+    height="15"
+    alt="${nation} flag"
+    style="
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 5px;
+      margin-bottom: 1px;
+      border-radius: 2px;
+      pointer-events: none;
+      user-select: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    "
+  >`;
 }
 function renderGrid() {
   const q = document.getElementById('search-input').value.toLowerCase();
