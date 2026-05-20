@@ -818,7 +818,27 @@
     .actor-grid { grid-template-columns: 1fr; }
   }
 
-  /* ── Mobile overrides ── */
+/* Mobile title swap */
+  .desktop-title { display: inline; }
+  .mobile-title { display: none; }
+
+  @media (max-width: 768px) {
+    .desktop-title { display: none; }
+    .mobile-title { display: inline; }
+    .topbar {
+      justify-content: center;
+      text-align: center;
+    }
+    .topbar-title-group {
+      justify-content: center;
+    }
+    .topbar-right {
+      display: none;
+    }
+    .logo {
+      display: none;
+    }
+  }
   @media (max-width: 480px) {
     html, body { height: auto; overflow: auto; }
     body::before { display: none; }
@@ -880,9 +900,10 @@
     ThreatBase
   </div>
 <div class="topbar-title-group">
-    <span class="topbar-title">Global Threat Dashboard</span>
-    <span class="topbar-divider"></span>
-    <span class="topbar-subtitle">Intelligence Platform</span>
+    <span class="topbar-title desktop-title">Global Threat Dashboard</span>
+    <span class="topbar-divider desktop-title"></span>
+    <span class="topbar-subtitle desktop-title">Intelligence Platform</span>
+    <span class="topbar-title mobile-title">Global Threats</span>
   </div>
   <div class="mobile-credit">Dalton Hunter</div>
   <div class="topbar-right">
