@@ -294,14 +294,31 @@
     white-space: nowrap;
   }
 
-  .theme-text-toggle::before {
+.theme-text-toggle::before {
     content: '';
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: var(--text3);
     flex-shrink: 0;
-    transition: background var(--transition);
+    transition: background var(--transition), opacity var(--transition);
+    opacity: 0.5;
+  }
+
+  body.light-mode .theme-text-toggle::before {
+    background: var(--accent-blue);
+    opacity: 1;
+  }
+
+  body.light-mode .theme-text-toggle {
+    color: #1a2236;
+    border-color: rgba(0,0,0,0.18);
+    background: linear-gradient(135deg, #b8bece 0%, #b0b6c4 100%);
+  }
+
+  body.light-mode .theme-text-toggle:hover {
+    background: linear-gradient(135deg, #c0c6d4 0%, #b8bece 100%);
+    border-color: rgba(0,0,0,0.24);
   }
 
   .theme-text-toggle:hover {
@@ -323,20 +340,21 @@
 
   /* ── LIGHT MODE OVERRIDES ── */
 body.light-mode {
-    --bg: #d8dce8;
-    --bg2: #e0e4ef;
-    --bg3: #ccd1e0;
-    --bg4: #c2c8d8;
-    --bg5: #b8bece;
-    --border: rgba(0,0,0,0.10);
-    --border2: rgba(0,0,0,0.18);
-    --border3: rgba(0,0,0,0.26);
+body.light-mode {
+    --bg: #bcc2d4;
+    --bg2: #c4cad8;
+    --bg3: #b2b8cc;
+    --bg4: #a8aec0;
+    --bg5: #9ea4b4;
+    --border: rgba(0,0,0,0.12);
+    --border2: rgba(0,0,0,0.20);
+    --border3: rgba(0,0,0,0.28);
     --text: #080c14;
     --text2: #1a2236;
     --text3: #4a5570;
-    --shadow-card: 0 2px 8px rgba(0,0,0,0.14), 0 1px 2px rgba(0,0,0,0.10);
-    --shadow-card-hover: 0 12px 36px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.08);
-    --shadow-panel: -4px 0 40px rgba(0,0,0,0.18), -1px 0 0 rgba(0,0,0,0.08);
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.12);
+    --shadow-card-hover: 0 12px 36px rgba(0,0,0,0.20), 0 4px 12px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.08);
+    --shadow-panel: -4px 0 40px rgba(0,0,0,0.20), -1px 0 0 rgba(0,0,0,0.08);
   }
 
   body.light-mode body::before {
@@ -461,12 +479,22 @@ body.light-mode {
     color: #1a2236;
   }
 
+body.light-mode .panel-tabs {
+    background: linear-gradient(180deg, #c8cdd8 0%, #c0c6d2 100%);
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+
   body.light-mode .tab-btn {
     color: #4a5570;
   }
 
   body.light-mode .tab-btn.active {
     color: #080c14;
+  }
+
+  body.light-mode .tab-btn::after {
+    background: var(--accent-blue);
+    box-shadow: 0 0 8px rgba(91,156,246,0.4);
   }
 
   body.light-mode .total-badge {
