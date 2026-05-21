@@ -275,7 +275,107 @@
     color: inherit;
     border: 1px solid rgba(255,255,255,0.06);
   }
+.theme-text-toggle {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text3);
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
 
+  .theme-text-toggle::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+    transition: background var(--transition);
+  }
+
+  .theme-text-toggle:hover {
+    border-color: var(--border2);
+    color: var(--text2);
+    background: linear-gradient(135deg, var(--bg3) 0%, rgba(22,29,46,0.6) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  body.light-mode .theme-text-toggle {
+    color: var(--text2);
+    border-color: var(--border2);
+  }
+
+  body.light-mode .theme-text-toggle::before {
+    background: var(--accent-blue);
+  }
+
+  /* ── LIGHT MODE OVERRIDES ── */
+  body.light-mode {
+    --bg: #f0f2f7;
+    --bg2: #ffffff;
+    --bg3: #e8ecf4;
+    --bg4: #dde2ee;
+    --bg5: #d0d6e8;
+    --border: rgba(0,0,0,0.08);
+    --border2: rgba(0,0,0,0.14);
+    --border3: rgba(0,0,0,0.22);
+    --text: #0f1520;
+    --text2: #3a4a5c;
+    --text3: #7a8a9c;
+    --shadow-card: 0 2px 8px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.08);
+    --shadow-card-hover: 0 12px 36px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.10), 0 0 0 1px rgba(0,0,0,0.06);
+    --shadow-panel: -4px 0 40px rgba(0,0,0,0.15), -1px 0 0 rgba(0,0,0,0.06);
+  }
+
+  body.light-mode .topbar {
+    background: linear-gradient(180deg, rgba(240,242,247,0.98) 0%, rgba(232,236,244,0.98) 100%);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  body.light-mode .topbar::after {
+    background: linear-gradient(90deg, transparent, rgba(91,156,246,0.4) 30%, rgba(91,156,246,0.4) 70%, transparent);
+  }
+
+  body.light-mode .controls {
+    background: linear-gradient(180deg, rgba(240,242,247,0.97) 0%, rgba(232,236,244,0.97) 100%);
+  }
+
+  body.light-mode .actor-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f4f6fc 60%, #eef1f8 100%);
+  }
+
+  body.light-mode .actor-card:hover {
+    background: linear-gradient(145deg, #ffffff 0%, #eef1f8 60%, #e8ecf4 100%);
+  }
+
+  body.light-mode .detail-panel {
+    background: linear-gradient(180deg, #ffffff 0%, rgba(240,242,247,0.98) 100%);
+  }
+
+  body.light-mode .search-wrap input {
+    background: linear-gradient(135deg, #ffffff 0%, #f4f6fc 100%);
+    color: var(--text);
+  }
+
+  body.light-mode .filter-btn {
+    color: var(--text3);
+  }
+
+  body.light-mode .filter-btn:hover {
+    background: linear-gradient(135deg, var(--bg3) 0%, var(--bg4) 100%);
+  }
   .search-wrap {
     margin-left: auto;
     position: relative;
@@ -920,6 +1020,9 @@
     <button class="filter-btn" onclick="setFilter('Cybercrime',this)">Cybercrime <span class="count-chip" id="cnt-crime"></span></button>
     <button class="filter-btn" onclick="setFilter('Hacktivist',this)">Hacktivist <span class="count-chip" id="cnt-hack"></span></button>
   </div>
+ <button class="theme-text-toggle" id="theme-toggle" onclick="toggleTheme()">
+    <span id="theme-label">LIGHT MODE</span>
+  </button>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
     <input type="text" id="search-input" placeholder="Search by name, nation, alias…" oninput="renderGrid()">
@@ -1302,7 +1405,22 @@ function closePanel() {
   document.getElementById('overlay').classList.remove('open');
   renderGrid();
 }
+function toggleTheme() {
+  const body = document.body;
+  const label = document.getElementById('theme-label');
+  const isLight = body.classList.toggle('light-mode');
+  label.textContent = isLight ? 'DARK MODE' : 'LIGHT MODE';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
 
+(function() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light') {
+    document.body.classList.add('light-mode');
+    const label = document.getElementById('theme-label');
+    if (label) label.textContent = 'DARK MODE';
+  }
+})();
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
 
 (function() {
