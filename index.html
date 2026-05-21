@@ -920,9 +920,22 @@
     <button class="filter-btn" onclick="setFilter('Cybercrime',this)">Cybercrime <span class="count-chip" id="cnt-crime"></span></button>
     <button class="filter-btn" onclick="setFilter('Hacktivist',this)">Hacktivist <span class="count-chip" id="cnt-hack"></span></button>
   </div>
+<select id="sector-filter" onchange="renderGrid()" style="font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;outline:none;">
+    <option value="">All Sectors</option>
+    <option value="healthcare">Healthcare</option>
+    <option value="energy">Energy</option>
+    <option value="government">Government</option>
+    <option value="defense">Defense</option>
+    <option value="financial">Financial</option>
+    <option value="telecoms">Telecoms</option>
+    <option value="manufacturing">Manufacturing</option>
+    <option value="education">Education</option>
+    <option value="critical infrastructure">Critical Infrastructure</option>
+  </select>
+  <button onclick="exportCSV()" style="font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;">⬇ Export CSV</button>
   <div class="search-wrap">
     <span class="search-icon">⌕</span>
-    <input type="text" id="search-input" placeholder="Search by name, nation, alias…" oninput="renderGrid()">
+    <input type="text" id="search-input" placeholder="Search by name, nation, alias, T-code…" oninput="renderGrid()">
   </div>
 </div>
 
@@ -1200,9 +1213,11 @@ function getNationFlag(nation) {
 function renderGrid() {
   const q = document.getElementById('search-input').value.toLowerCase();
   const grid = document.getElementById('actor-grid');
+const sector = document.getElementById('sector-filter').value.toLowerCase();
   const filtered = actors.filter(a => {
     if (currentFilter !== 'all' && a.type !== currentFilter) return false;
-    if (q && !a.name.toLowerCase().includes(q) && !a.nation.toLowerCase().includes(q) && !(a.aliases||[]).some(al => al.toLowerCase().includes(q))) return false;
+    if (q && !a.name.toLowerCase().includes(q) && !a.nation.toLowerCase().includes(q) && !(a.aliases||[]).some(al => al.toLowerCase().includes(q)) && !(a.mitre_techniques||[]).some(t => t.toLowerCase().includes(q))) return false;
+    if (sector && !(a.targets||[]).some(t => t.toLowerCase().includes(sector))) return false;
     return true;
   });
   if (!filtered.length) {
@@ -1215,7 +1230,7 @@ function renderGrid() {
           <div class="card-name">${a.name}</div>
           <span class="type-badge ${getBadgeClass(a.type)}">${a.type}</span>
         </div>
-<div class="card-nation">${a.nation} ${getNationFlag(a.nation)}</div>
+<div class="card-nation">${a.nation} ${getNationFlag(a.nation)} ${a.mitre_group_id && a.mitre_group_id !== 'N/A' ? `<a href="https://attack.mitre.org/groups/${a.mitre_group_id}/" target="_blank" rel="noopener" style="color:var(--accent-blue);font-size:9px;margin-left:6px;text-decoration:none;border:1px solid var(--accent-blue-border);padding:1px 5px;border-radius:3px;">MITRE ↗</a>` : ''}</div>
         <div class="card-targets">${(a.targets||[]).slice(0,3).join(' · ')}</div>
       </div>`;
     }).join('');
