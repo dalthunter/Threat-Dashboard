@@ -1406,10 +1406,14 @@ function setFilter(f, btn) {
 
 function updateCounts() {
   const q = document.getElementById('search-input').value.toLowerCase();
+  const sector = document.getElementById('sector-filter').value.toLowerCase();
+
   const matches = a => {
-    if (!q) return true;
-    return a.name.toLowerCase().includes(q) || a.nation.toLowerCase().includes(q) || (a.aliases||[]).some(al => al.toLowerCase().includes(q));
+    if (q && !a.name.toLowerCase().includes(q) && !a.nation.toLowerCase().includes(q) && !(a.aliases||[]).some(al => al.toLowerCase().includes(q)) && !(a.mitre_techniques||[]).some(t => t.toLowerCase().includes(q))) return false;
+    if (sector && !(a.targets||[]).some(t => t.toLowerCase().includes(sector))) return false;
+    return true;
   };
+
   const all = actors.filter(matches);
   document.getElementById('cnt-all').textContent = all.length;
   document.getElementById('cnt-apt').textContent = actors.filter(a => a.type==='APT' && matches(a)).length;
