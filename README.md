@@ -3,4 +3,4 @@
 🔗 [Global Threat Intelligence Dashboard](https://dalthunter.github.io/Threat-Dashboard/)
 
 ## Overview
-The Global Threat Intelligence Dashboard is designed to visualize cyber threats, support situational awareness, and analyze adversary activity through an interactive intelligence workflow focused on adversary TTPs and MITRE ATT&CK mapping.
+Global Threat Intelligence Dashboard is an interactive tool that helps you understand cyber threats and hacker activity using MITRE ATT&CK.
