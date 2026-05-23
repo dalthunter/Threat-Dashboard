@@ -78,13 +78,14 @@
 }
 
   /* ── TOPBAR ── */
-  .topbar {
+.topbar {
     background: linear-gradient(180deg, rgba(22,29,46,0.98) 0%, rgba(15,21,32,0.98) 100%);
     border-bottom: 1px solid var(--border2);
     padding: 14px 28px;
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
     backdrop-filter: blur(12px);
     box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 16px rgba(0,0,0,0.3);
     position: relative;
@@ -902,7 +903,7 @@
     <div class="logo-dot"></div>
     ThreatBase
   </div>
-<div class="topbar-title-group" style="flex:1;display:flex;align-items:center;justify-content:center;gap:12px;">
+<div class="topbar-title-group" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;">
     <span class="topbar-title desktop-title">Global Threat Dashboard</span>
     <span class="topbar-divider desktop-title"></span>
     <span class="topbar-subtitle desktop-title">Intelligence Platform</span>
