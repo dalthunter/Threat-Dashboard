@@ -864,9 +864,9 @@
     .logo { display: none; }
     .topbar-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
     .mobile-credit { display: block; font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: .08em; margin-top: 1px; white-space: nowrap; }
-    .analyst-tag { display: none; }
+    .analyst-tag { flex-shrink: 0; }
     .topbar-right { gap: 8px; flex-shrink: 0; }
-    #utc-clock { display: none; }
+    #utc-clock { flex-shrink: 0; }
     .total-badge { font-size: 10px; padding: 3px 7px; white-space: nowrap; }
     .controls { padding: 10px 12px; flex-direction: column; align-items: stretch; gap: 10px; }
     .filter-group { display: flex; width: 100%; gap: 6px; }
@@ -916,7 +916,7 @@
     <div class="logo-dot"></div>
     ThreatBase
   </div>
-<div class="topbar-title-group" style="flex:1;display:flex;align-items:center;justify-content:center;gap:12px;">
+<div class="topbar-title-group" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;pointer-events:none;white-space:nowrap;">
     <span class="topbar-title desktop-title">Global Threat Dashboard</span>
     <span class="topbar-divider desktop-title"></span>
     <span class="topbar-subtitle desktop-title">Intelligence Platform</span>
