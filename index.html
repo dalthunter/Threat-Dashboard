@@ -143,8 +143,8 @@ background-size:
     height: 100%;
     pointer-events: none;
     z-index: 0;
-    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.5) 85%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.5) 85%, transparent 100%);
+mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
   }
 
   .topbar > *:not(.topbar-canvas) {
@@ -1737,7 +1737,7 @@ renderGrid();
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(91,156,246,${alpha})`;
+          ctx.strokeStyle = `rgba(91,156,246,${alpha * 2.5})`;
           ctx.lineWidth = 0.7;
           ctx.stroke();
         }
@@ -1747,7 +1747,7 @@ renderGrid();
     for (const n of nodes) {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(91,156,246,0.55)';
+      ctx.fillStyle = 'rgba(91,156,246,0.9)';
       ctx.fill();
     }
 
