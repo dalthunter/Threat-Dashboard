@@ -133,7 +133,23 @@ background-size:
     position: relative;
     backdrop-filter: blur(12px);
     box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 16px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+
+  .topbar-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.5) 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 15%, rgba(0,0,0,0.5) 85%, transparent 100%);
+  }
+
+  .topbar > *:not(.topbar-canvas) {
     position: relative;
+    z-index: 1;
   }
 
   .topbar::after {
@@ -959,6 +975,7 @@ background-size:
 <div class="app">
 
 <div class="topbar">
+<canvas class="topbar-canvas" id="topbar-net"></canvas>
 <div class="logo">
     <div class="logo-dot"></div>
     ThreatBase
@@ -1682,6 +1699,73 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel()
 })();
 
 renderGrid();
+
+(function(){
+  const canvas = document.getElementById('topbar-net');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const NODE_COUNT = 28;
+  const CONNECT_DIST = 160;
+  const SPEED = 0.28;
+  let W, H, nodes;
+
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  function makeNodes() {
+    nodes = Array.from({length: NODE_COUNT}, () => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * SPEED,
+      vy: (Math.random() - 0.5) * SPEED,
+      r: Math.random() * 1.4 + 0.8
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < CONNECT_DIST) {
+          const alpha = (1 - dist / CONNECT_DIST) * 0.22;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(91,156,246,${alpha})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    for (const n of nodes) {
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(91,156,246,0.55)';
+      ctx.fill();
+    }
+
+    for (const n of nodes) {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  makeNodes();
+  draw();
+  window.addEventListener('resize', () => { resize(); });
+})();
 </script>
 </body>
 </html>
