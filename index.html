@@ -9,19 +9,24 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-/* REPLACE WITH: */
---bg: #0e1520;
---bg2: #141c2e;
---bg3: #1c2540;
---bg4: #263252;
---bg5: #2e3c60;
---border: rgba(255,255,255,0.10);
---border2: rgba(255,255,255,0.18);
---border3: rgba(255,255,255,0.28);
---text: #f4f8ff;
---text2: #a8c0d6;
---text3: #6a8aaa;
+:root {
+/* LUXURY DARK FOUNDATION (Rolex / Omega inspired) */
+
+--bg: #0b0c0f;
+--bg2: #111318;
+--bg3: #171a21;
+--bg4: #1f232c;
+--bg5: #262b36;
+
+/* Softer, more premium borders (less “glow tech”) */
+--border: rgba(255,255,255,0.06);
+--border2: rgba(255,255,255,0.10);
+--border3: rgba(255,255,255,0.16);
+
+/* More editorial, less neon-blue UI */
+--text: #f5f6f7;
+--text2: #b8bcc6;
+--text3: #7f8794;
     --accent-apt: #ff5247;
     --accent-apt-bg: rgba(255,82,71,0.10);
     --accent-apt-border: rgba(255,82,71,0.28);
@@ -48,14 +53,21 @@
     --card-transition: 250ms ease-in-out;
   }
 
-  html, body {
-    height: 100%;
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.5;
-  }
+html, body {
+height: 100%;
+font-family: var(--sans);
+background: var(--bg);
+color: var(--text);
+
+/* slightly smaller base = more luxury feel */
+font-size: 13.5px;
+line-height: 1.65;
+
+/* smoother text rendering (important for premium feel) */
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+text-rendering: optimizeLegibility;
+}
 
   body::before {
     content: '';
@@ -79,26 +91,37 @@
 
   /* ── TOPBAR ── */
 .topbar {
-    background: linear-gradient(180deg, rgba(22,29,46,0.98) 0%, rgba(15,21,32,0.98) 100%);
-    border-bottom: 1px solid var(--border2);
-    padding: 14px 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 16px rgba(0,0,0,0.3);
-    position: relative;
-  }
+background: rgba(11, 12, 15, 0.72);
+border-bottom: 1px solid var(--border);
+padding: 18px 36px;
+display: flex;
+align-items: center;
+gap: 18px;
+position: relative;
 
-  .topbar::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(91,156,246,0.3) 30%, rgba(91,156,246,0.3) 70%, transparent);
-    opacity: 0.5;
-  }
+/* luxury glass effect (very subtle, not “tech UI”) */
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
+
+box-shadow: 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* remove cyber glow line — replace with subtle luxury divider */
+.topbar::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 36px;
+right: 36px;
+height: 1px;
+background: linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.08),
+transparent
+);
+opacity: 0.6;
+}
 
   .logo {
     font-family: var(--mono);
@@ -354,27 +377,49 @@
   }
 
   /* ── CARDS ── */
-  .actor-card {
-    background: linear-gradient(145deg, var(--bg2) 0%, var(--bg3) 60%, rgba(22,29,46,0.95) 100%);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 20px 20px 18px;
-    cursor: pointer;
-    /* Smooth scale + shadow transition */
-    transition:
-      border-color var(--card-transition),
-      transform var(--card-transition),
-      box-shadow var(--card-transition),
-      background var(--card-transition);
-    will-change: transform;
-    position: relative;
-    overflow: hidden;
-    min-height: 130px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    box-shadow: var(--shadow-card);
-  }
+.actor-card {
+background: linear-gradient(180deg, var(--bg2) 0%, var(--bg3) 100%);
+border: 1px solid rgba(255,255,255,0.06);
+border-radius: 12px;
+padding: 22px 22px 18px;
+cursor: pointer;
+
+/* softer, more luxury transition */
+transition:
+transform 300ms ease,
+box-shadow 300ms ease,
+border-color 300ms ease,
+background 300ms ease;
+
+position: relative;
+overflow: hidden;
+min-height: 140px;
+display: flex;
+flex-direction: column;
+gap: 8px;
+
+/* remove heavy “UI dashboard” shadow */
+box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* subtle luxury lift instead of “tech zoom” */
+.actor-card:hover {
+transform: translateY(-4px);
+
+/* softer luxury border shift */
+border-color: rgba(255,255,255,0.10);
+
+/* very subtle surface refinement */
+background: linear-gradient(180deg, var(--bg3) 0%, var(--bg3) 100%);
+
+/* premium depth instead of “lift effect” */
+box-shadow:
+0 14px 30px rgba(0,0,0,0.35),
+0 2px 8px rgba(0,0,0,0.25);
+
+/* smoother feel */
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 
   .actor-card::before {
     content: '';
@@ -448,19 +493,29 @@
     letter-spacing: -.015em;
   }
 
-  .type-badge {
-    font-family: var(--mono);
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    flex-shrink: 0;
-    white-space: nowrap;
-    margin-top: 1px;
-    transition: box-shadow var(--transition);
-  }
+.type-badge {
+font-family: var(--sans);
+font-size: 10px;
+font-weight: 500;
+letter-spacing: .06em;
+text-transform: uppercase;
+
+padding: 4px 10px;
+border-radius: 999px;
+
+flex-shrink: 0;
+white-space: nowrap;
+
+/* luxury tag look (subtle, not alert-based) */
+border: 1px solid rgba(255,255,255,0.10);
+background: rgba(255,255,255,0.04);
+color: var(--text2);
+
+backdrop-filter: blur(6px);
+-webkit-backdrop-filter: blur(6px);
+
+transition: all 200ms ease;
+}
 
   .badge-apt {
     background: var(--accent-apt-bg);
