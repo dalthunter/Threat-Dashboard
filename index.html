@@ -124,7 +124,7 @@ background-size:
 
   /* ── TOPBAR ── */
 .topbar {
-    background: linear-gradient(180deg, rgba(22,29,46,0.98) 0%, rgba(15,21,32,0.98) 100%);
+    background: linear-gradient(180deg, rgba(22,29,46,0.82) 0%, rgba(15,21,32,0.88) 100%);
     border-bottom: 1px solid var(--border2);
     padding: 14px 28px;
     display: flex;
@@ -1720,7 +1720,7 @@ renderGrid();
       y: Math.random() * H,
       vx: (Math.random() - 0.5) * SPEED,
       vy: (Math.random() - 0.5) * SPEED,
-      r: Math.random() * 1.4 + 0.8
+      r: Math.random() * 2.5 + 1.8
     }));
   }
 
@@ -1737,7 +1737,7 @@ renderGrid();
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
-          ctx.strokeStyle = `rgba(91,156,246,${alpha * 2.5})`;
+          ctx.strokeStyle = `rgba(91,156,246,${alpha * 8})`;
           ctx.lineWidth = 0.7;
           ctx.stroke();
         }
@@ -1747,7 +1747,7 @@ renderGrid();
     for (const n of nodes) {
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(91,156,246,0.9)';
+      ctx.fillStyle = 'rgba(160,210,255,1)';
       ctx.fill();
     }
 
