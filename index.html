@@ -215,25 +215,28 @@
 
   .filter-group { display: flex; gap: 5px; }
 
-  .filter-btn {
+.filter-btn {
     font-family: var(--mono);
     font-size: 10px;
     font-weight: 500;
     letter-spacing: .09em;
     text-transform: uppercase;
-    padding: 6px 14px;
-    border-radius: var(--radius);
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text3);
+    padding: 0;
+    border: none;
+    background: none;
+    color: #ffffff;
     cursor: pointer;
-    transition: all var(--transition);
+    transition: opacity .2s ease;
     display: flex;
     align-items: center;
     gap: 6px;
-    position: relative;
-    overflow: hidden;
-  }
+}
+
+.filter-btn:hover {
+    opacity: .7;
+    transform: none;
+    box-shadow: none;
+}
 
   .filter-btn::before {
     content: '';
@@ -282,14 +285,13 @@
     box-shadow: 0 0 12px var(--accent-hack-glow), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(46,204,113,0.1);
   }
 
-  .count-chip {
+.count-chip {
     font-size: 10px;
-    padding: 1px 6px;
-    border-radius: 3px;
-    background: rgba(255,255,255,0.06);
-    color: inherit;
-    border: 1px solid rgba(255,255,255,0.06);
-  }
+    padding: 0;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,.55);
+}
 
   .search-wrap {
     margin-left: auto;
@@ -924,7 +926,7 @@
   </div>
   <div class="mobile-credit">Dalton Hunter</div>
   <div class="topbar-right">
-    <div id="utc-clock" style="font-family:var(--mono);font-size:11.5px;color:var(--text3);background:linear-gradient(135deg,var(--bg3) 0%,var(--bg4) 100%);border:1px solid var(--border2);padding:3px 10px;border-radius:5px;letter-spacing:.08em;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.3),inset 0 1px 0 rgba(255,255,255,0.04);"></div>
+    <div id="utc-clock" style="font-family:var(--mono);font-size:11.5px;color:#ffffff;background:none;border:none;padding:0;letter-spacing:.08em;white-space:nowrap;"
     <span class="analyst-tag">Designed &amp; Developed by Dalton Hunter</span>
   </div>
 </div>
@@ -936,7 +938,7 @@
     <button class="filter-btn" onclick="setFilter('Cybercrime',this)">Cybercrime <span class="count-chip" id="cnt-crime"></span></button>
     <button class="filter-btn" onclick="setFilter('Hacktivist',this)">Hacktivist <span class="count-chip" id="cnt-hack"></span></button>
   </div>
-<select id="sector-filter" onchange="renderGrid()" style="font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:6px 12px;border-radius:var(--radius);border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;outline:none;">
+<select id="sector-filter" onchange="renderGrid()" style="font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:0;border:none;background:none;color:#ffffff;cursor:pointer;outline:none;"
     <option value="">All Sectors</option>
     <option value="healthcare">Healthcare</option>
     <option value="energy">Energy</option>
@@ -951,9 +953,9 @@
 
 <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;">
 <span style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-right:3px;">Updates <span style="font-size:22px;vertical-align:middle;line-height:1;">→</span></span>
-    <a href="https://thehackernews.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:6px 11px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);text-decoration:none;transition:all 220ms cubic-bezier(0.4,0,0.2,1);white-space:nowrap;" onmouseover="this.style.borderColor='var(--accent-blue-border)';this.style.color='var(--accent-blue)';this.style.background='var(--accent-blue-bg)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)';this.style.background='transparent'">⬡ THN ↗</a>
-    <a href="https://www.bleepingcomputer.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:6px 11px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);text-decoration:none;transition:all 220ms cubic-bezier(0.4,0,0.2,1);white-space:nowrap;" onmouseover="this.style.borderColor='var(--accent-blue-border)';this.style.color='var(--accent-blue)';this.style.background='var(--accent-blue-bg)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)';this.style.background='transparent'">◈ BC ↗</a>
-    <a href="https://www.securityweek.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:6px 11px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);text-decoration:none;transition:all 220ms cubic-bezier(0.4,0,0.2,1);white-space:nowrap;" onmouseover="this.style.borderColor='var(--accent-blue-border)';this.style.color='var(--accent-blue)';this.style.background='var(--accent-blue-bg)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text3)';this.style.background='transparent'">◉ SW ↗</a>
+    <a href="https://thehackernews.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:0;border:none;background:none;color:#ffffff;text-decoration:none;"
+    <a href="https://www.bleepingcomputer.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:0;border:none;background:none;color:#ffffff;text-decoration:none;"
+    <a href="https://www.securityweek.com/" target="_blank" rel="noopener" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.07em;padding:0;border:none;background:none;color:#ffffff;text-decoration:none;"
   </div>
 <div class="search-wrap">
     <span class="search-icon">⌕</span>
