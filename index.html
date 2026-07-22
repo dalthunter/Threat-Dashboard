@@ -915,11 +915,13 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
 
   .luxury-nav.scrolled .luxury-nav-brand { color: #111; }
 
-  .luxury-nav-links {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-  }
+.luxury-nav-links {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:70px;
+    list-style:none;
+}
 
   .luxury-nav-item {
     position: relative;
@@ -939,18 +941,42 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
 
   .luxury-nav.scrolled .luxury-nav-item > a { color: #161616; }
 
-  .luxury-dropdown {
+.luxury-dropdown {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+
     background: #fff;
-    padding: 100px 60px 40px;
+
+    padding: 110px 90px 60px;
+
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+
+    min-height: 420px;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,.15);
+
+    opacity: 0;
+    transform: translateY(-12px);
+    pointer-events: none;
+
+    transition:
+      opacity .25s ease,
+      transform .25s ease;
+
+    z-index: 90;
+}
     display: flex;
     gap: 60px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.12);
     opacity: 0;
     transform: translateY(-12px);
     pointer-events: none;
-    transition: opacity 260ms ease, transform 260ms ease;
+transition: opacity 180ms ease,
+            transform 180ms ease;
     z-index: 90;
   }
 
@@ -1047,16 +1073,18 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
     box-shadow: 0 12px 30px rgba(91,156,246,0.35);
   }
 
-  .hero-scroll-cue {
+.hero-scroll-cue {
     position: absolute;
-    bottom: 36px; left: 50%;
+    bottom: 36px;
+    left: 50%;
     transform: translateX(-50%);
     font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: .2em;
-    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .25em;
+    color: rgba(255,255,255,0.75);
     text-transform: uppercase;
-  }
+}
 
   @media (max-width: 900px) {
     .luxury-nav { padding: 18px 20px; }
@@ -1157,9 +1185,7 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
 <nav class="luxury-nav" id="luxury-nav">
   <div class="luxury-nav-brand">ThreatBase</div>
   <ul class="luxury-nav-links">
-    <li class="luxury-nav-item">
-      <a href="#app-dashboard">Dashboard</a>
-    </li>
+
     <li class="luxury-nav-item">
       <a href="#app-dashboard">Threat Actors</a>
       <div class="luxury-dropdown">
@@ -1169,18 +1195,29 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
           <a href="#app-dashboard" onclick="document.querySelector('.filter-group .filter-btn:nth-child(3)').click()">Cybercrime</a>
           <a href="#app-dashboard" onclick="document.querySelector('.filter-group .filter-btn:nth-child(4)').click()">Hacktivists</a>
         </div>
-        <div class="luxury-dropdown-col">
-          <h4>Resources</h4>
-          <a href="https://thehackernews.com/" target="_blank" rel="noopener">The Hacker News</a>
-          <a href="https://www.bleepingcomputer.com/" target="_blank" rel="noopener">BleepingComputer</a>
-          <a href="https://www.securityweek.com/" target="_blank" rel="noopener">SecurityWeek</a>
-        </div>
-      </div>
-    </li>
-    <li class="luxury-nav-item"><a href="#app-dashboard">Global Incidents</a></li>
-    <li class="luxury-nav-item"><a href="#app-dashboard">Intelligence Reports</a></li>
-  </ul>
-</nav>
+<li class="luxury-nav-item">
+  <a href="#">News Resources</a>
+
+  <div class="luxury-dropdown">
+    <div class="luxury-dropdown-col">
+
+      <h4>Cyber News</h4>
+
+      <a href="https://thehackernews.com/" target="_blank">
+        The Hacker News
+      </a>
+
+      <a href="https://www.bleepingcomputer.com/" target="_blank">
+        BleepingComputer
+      </a>
+
+      <a href="https://www.securityweek.com/" target="_blank">
+        SecurityWeek
+      </a>
+
+    </div>
+  </div>
+</li>
 
 <header class="hero-section">
   <div class="hero-content">
@@ -1196,10 +1233,7 @@ mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transpa
 
 <div class="topbar">
 <canvas class="topbar-canvas" id="topbar-net"></canvas>
-<div class="logo">
-    <div class="logo-dot"></div>
-ThreatBase 🌐
-  </div>
+<div class="logo"></div>
 
 <div class="topbar-title-group" style="position:absolute;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:12px;pointer-events:none;white-space:nowrap;">
     <span class="topbar-title desktop-title">Global Threat Dashboard</span>
